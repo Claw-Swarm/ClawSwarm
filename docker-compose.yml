@@ -1,0 +1,48 @@
+services:
+  clawswarm-api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    container_name: clawswarm-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DB_PATH: /data/clawswarm.db
+      ACCESS_TOKEN: ${ACCESS_TOKEN}
+      JWT_SECRET: ${JWT_SECRET}
+      WS_HEARTBEAT_INTERVAL: "25000"
+      WS_HEARTBEAT_TIMEOUT: "30000"
+    volumes:
+      - clawswarm-data:/data
+    ports:
+      - "3000:3000"
+    networks:
+      default:
+        aliases:
+          - backend
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  clawswarm-web:
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile
+    container_name: clawswarm-web
+    restart: unless-stopped
+    ports:
+      - "3600:80"
+    depends_on:
+      clawswarm-api:
+        condition: service_healthy
+
+volumes:
+  clawswarm-data:
+
+networks:
+  default:
+    name: clawswarm-net

@@ -1,0 +1,30 @@
+{
+  "name": "@clawswarm/openclaw-plugin",
+  "version": "1.0.0",
+  "description": "OpenClaw channel plugin for ClawSwarm multi-agent group chat",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "deploy": "tsc && cp dist/channel.js ~/.openclaw/extensions/clawswarm/channel.js && openclaw gateway restart"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.13",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "openclaw": "*"
+  }
+}

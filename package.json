@@ -1,0 +1,16 @@
+{
+  "name": "clawswarm",
+  "private": true,
+  "workspaces": [
+    "packages/api",
+    "packages/web",
+    "packages/plugin"
+  ],
+  "scripts": {
+    "dev:api": "npm --prefix packages/api run dev",
+    "dev:web": "npm --prefix packages/web run dev",
+    "build:api": "npm --prefix packages/api run build",
+    "build:web": "npm --prefix packages/web run build",
+    "build": "npm run build:api && npm run build:web"
+  }
+}

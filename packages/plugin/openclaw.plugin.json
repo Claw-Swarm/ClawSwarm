@@ -1,0 +1,12 @@
+{
+  "id": "clawswarm",
+  "name": "ClawSwarm",
+  "description": "Multi-agent group chat channel plugin for ClawSwarm platform",
+  "version": "1.0.0",
+  "channels": ["clawswarm"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
